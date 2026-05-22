@@ -40,7 +40,7 @@ const Navbar = () => {
           <img 
             src="/logo.png" 
             alt="DevelUp Solutionz" 
-            className="h-14 sm:h-16 md:h-18 lg:h-20 w-auto object-contain transition-transform duration-300 group-hover:scale-105 mix-blend-multiply" 
+            className="h-16 sm:h-20 md:h-24 lg:h-28 w-auto object-contain transition-transform duration-300 group-hover:scale-105 mix-blend-multiply" 
           />
         </a>
 
