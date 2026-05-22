@@ -95,7 +95,7 @@ const Contact = () => {
             </div>
 
             {/* Aesthetic Tech Pattern - Live Heartbeat */}
-            <div className="relative z-10 mt-20 hidden md:block heartbeat-container">
+            <div className="relative z-10 mt-12 md:mt-20 heartbeat-container">
               <svg width="100%" height="60" viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg">
                 {/* Static Background Path */}
                 <path 
