@@ -8,31 +8,68 @@ const BouncingCard = ({ containerRef, mousePos, initialX, initialY, initialVx, i
   const v = useRef({ x: initialVx, y: initialVy });
   const cardRef = useRef(null);
 
+  const dims = useRef({ cw: 0, ch: 0, w: 0, h: 0, left: 0, top: 0 });
+
+  useEffect(() => {
+    const updateDims = () => {
+      if (containerRef.current && cardRef.current) {
+        const cRect = containerRef.current.getBoundingClientRect();
+        const cardRect = cardRef.current.getBoundingClientRect();
+        dims.current = {
+          cw: cRect.width,
+          ch: cRect.height,
+          w: cardRect.width,
+          h: cardRect.height,
+          left: cRect.left,
+          top: cRect.top
+        };
+      }
+    };
+    
+    updateDims();
+    setTimeout(updateDims, 100);
+    
+    window.addEventListener('resize', updateDims);
+    window.addEventListener('scroll', updateDims, { passive: true });
+    
+    return () => {
+      window.removeEventListener('resize', updateDims);
+      window.removeEventListener('scroll', updateDims);
+    };
+  }, [containerRef]);
+
   useAnimationFrame(() => {
-    if (!containerRef.current || !cardRef.current) return;
-    const container = containerRef.current.getBoundingClientRect();
-    const card = cardRef.current.getBoundingClientRect();
+    const { cw, ch, w, h, left, top } = dims.current;
+    if (cw === 0 || w === 0) return;
+    
     let newX = x.get() + v.current.x;
     let newY = y.get() + v.current.y;
+    
     if (newX <= 0) { newX = 0; v.current.x = Math.abs(v.current.x); }
-    if (newX + card.width >= container.width) { newX = container.width - card.width; v.current.x = -Math.abs(v.current.x); }
+    if (newX + w >= cw) { newX = cw - w; v.current.x = -Math.abs(v.current.x); }
     if (newY <= 0) { newY = 0; v.current.y = Math.abs(v.current.y); }
-    if (newY + card.height >= container.height) { newY = container.height - card.height; v.current.y = -Math.abs(v.current.y); }
-    const mouseLocalX = mousePos.current.x - container.left;
-    const mouseLocalY = mousePos.current.y - container.top;
-    const cardCenterX = newX + card.width / 2;
-    const cardCenterY = newY + card.height / 2;
+    if (newY + h >= ch) { newY = ch - h; v.current.y = -Math.abs(v.current.y); }
+    
+    const mouseLocalX = mousePos.current.x - left;
+    const mouseLocalY = mousePos.current.y - top;
+    
+    const cardCenterX = newX + w / 2;
+    const cardCenterY = newY + h / 2;
+    
     const dx = cardCenterX - mouseLocalX;
     const dy = cardCenterY - mouseLocalY;
     const dist = Math.sqrt(dx * dx + dy * dy);
+    
     if (dist < 150 && dist > 0) {
       const force = (150 - dist) / 150;
       v.current.x += (dx / dist) * force * 1.5;
       v.current.y += (dy / dist) * force * 1.5;
     }
+    
     const currentSpeed = Math.sqrt(v.current.x ** 2 + v.current.y ** 2);
     const maxSpeed = 6;
     const minSpeed = 1.0;
+    
     if (currentSpeed > maxSpeed) {
       v.current.x = (v.current.x / currentSpeed) * maxSpeed;
       v.current.y = (v.current.y / currentSpeed) * maxSpeed;
@@ -43,6 +80,7 @@ const BouncingCard = ({ containerRef, mousePos, initialX, initialY, initialVx, i
       v.current.x = (v.current.x / currentSpeed) * minSpeed;
       v.current.y = (v.current.y / currentSpeed) * minSpeed;
     }
+    
     x.set(newX);
     y.set(newY);
   });
