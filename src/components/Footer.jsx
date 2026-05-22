@@ -107,7 +107,7 @@ const Footer = () => {
           </div>
 
           {/* Services */}
-          <div className="pl-6 md:pl-10 lg:pl-16">
+          <div className="justify-self-end text-right lg:justify-self-start lg:text-left">
             <h4 className="text-[10px] font-black uppercase tracking-[0.3em] text-black mb-8">Solutions</h4>
             <ul className="space-y-4">
               {services.map((item) => (
