@@ -50,9 +50,9 @@ const Footer = () => {
       </div>
 
       <div className="container mx-auto px-4 sm:px-8">
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 mb-10">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 mb-10">
           {/* Brand */}
-          <div className="lg:col-span-1">
+          <div className="col-span-2 lg:col-span-1">
             <a href="#home" className="flex items-center gap-3 mb-8">
               <img 
                 src="/logo.png" 
@@ -121,7 +121,7 @@ const Footer = () => {
           </div>
 
           {/* Signal */}
-          <div>
+          <div className="col-span-2 lg:col-span-1 flex flex-col items-center lg:items-start text-center lg:text-left mt-4 lg:mt-0">
             <h4 className="text-[10px] font-black uppercase tracking-[0.3em] text-black mb-8">Direct Signal</h4>
             <p className="text-slate-800 text-sm mb-6">Ready to engineer your future?</p>
             <a
