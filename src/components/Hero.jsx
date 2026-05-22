@@ -57,16 +57,7 @@ const BouncingCard = ({ containerRef, mousePos, initialX, initialY, initialVx, i
 const Hero = () => {
   const containerRef = useRef(null);
   const mousePos = useRef({ x: -1000, y: -1000 });
-  const [isMobile, setIsMobile] = useState(() => {
-    return typeof window !== 'undefined' ? window.innerWidth < 768 : false;
-  });
 
-  useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth < 768);
-    check();
-    window.addEventListener('resize', check);
-    return () => window.removeEventListener('resize', check);
-  }, []);
 
   useEffect(() => {
     const handleMouseMove = (e) => { mousePos.current = { x: e.clientX, y: e.clientY }; };
@@ -83,7 +74,7 @@ const Hero = () => {
   }, []);
 
   return (
-    <section id="home" className="relative min-h-screen pt-36 md:pt-40 lg:pt-48 pb-12 overflow-hidden flex items-center bg-[#f8fafc]">
+    <section id="home" className="relative min-h-screen pt-28 md:pt-36 lg:pt-48 pb-12 overflow-hidden flex items-center bg-[#f8fafc]">
       <div className="container mx-auto px-4 sm:px-8 md:px-12 grid lg:grid-cols-2 gap-8 lg:gap-12 items-center relative z-10 w-full">
 
         {/* Left Content */}
@@ -125,9 +116,8 @@ const Hero = () => {
           </motion.div>
         </div>
 
-        {/* Right Bouncing Container (simplified on mobile) */}
-        {!isMobile ? (
-          <div ref={containerRef} className="relative w-full h-[300px] sm:h-[380px] md:h-[450px] lg:h-[580px] mt-4 lg:mt-0">
+        {/* Right Bouncing Container */}
+        <div ref={containerRef} className="relative w-full h-[300px] sm:h-[380px] md:h-[450px] lg:h-[580px] mt-4 lg:mt-0">
           {/* Central Glow */}
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200px] h-[200px] md:w-[300px] md:h-[300px] lg:w-[400px] lg:h-[400px] bg-gradient-to-tr from-blue-electric/20 to-purple-neon/20 rounded-full blur-[80px]" />
 
@@ -173,45 +163,7 @@ const Hero = () => {
             <div className="h-1 md:h-1.5 w-2/3 bg-slate-800 rounded-full pointer-events-none" />
           </BouncingCard>
           </div>
-        ) : (
-          <div className="w-full mt-6 flex flex-col items-center gap-4">
-            <div className="w-11/12 bg-gradient-to-br from-blue-electric to-purple-neon rounded-2xl p-4 shadow-md">
-              <div className="flex items-center gap-3">
-                <div className="w-9 h-9 rounded-lg bg-white/20 flex items-center justify-center text-white">
-                  <Code size={16} />
-                </div>
-                <div>
-                  <h4 className="font-bold text-white text-sm">Scalable Code</h4>
-                  <p className="text-white/80 text-xs">Built for growth.</p>
-                </div>
-              </div>
-            </div>
 
-            <div className="w-11/12 bg-white/90 rounded-2xl p-4 shadow-md border border-white/60">
-              <div className="flex items-center gap-3">
-                <div className="w-9 h-9 rounded-lg bg-purple-neon/10 flex items-center justify-center text-purple-neon">
-                  <Smartphone size={16} />
-                </div>
-                <div>
-                  <h4 className="font-bold text-slate-800 text-sm">Mobile App</h4>
-                  <p className="text-slate-600 text-xs">Optimized for small screens.</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="w-11/12 bg-slate-900/90 rounded-2xl p-4 shadow-md">
-              <div className="flex items-center gap-3">
-                <div className="w-9 h-9 rounded-lg bg-blue-400/20 flex items-center justify-center text-blue-400">
-                  <Zap size={16} />
-                </div>
-                <div>
-                  <h4 className="font-bold text-white text-sm">Performance</h4>
-                  <p className="text-white/80 text-xs">Fast, reliable, efficient.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
       </div>
 
       {/* Huge Borderless Orbs */}
