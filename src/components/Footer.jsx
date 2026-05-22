@@ -126,7 +126,7 @@ const Footer = () => {
             <p className="text-slate-800 text-sm mb-6">Ready to engineer your future?</p>
             <a
               href="mailto:develupsolutionz@gmail.com"
-              className="inline-block text-[10px] sm:text-xs font-black tracking-widest uppercase bg-slate-900 text-white border border-slate-900 hover:bg-slate-800 px-4 sm:px-6 py-3 sm:py-4 rounded-2xl transition-all duration-300 break-all max-w-full text-center"
+              className="inline-block text-[10px] sm:text-xs font-black tracking-widest uppercase bg-slate-900 text-white border border-slate-900 hover:bg-slate-800 px-4 sm:px-6 py-3 sm:py-4 rounded-2xl transition-all duration-300 whitespace-nowrap max-w-full text-center"
             >
               develupsolutionz@gmail.com
             </a>
