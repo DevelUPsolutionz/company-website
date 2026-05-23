@@ -148,7 +148,7 @@ const Hero = () => {
             initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.4 }}
             className="text-slate-700 text-base md:text-lg lg:text-xl max-w-xl leading-relaxed"
           >
-            DevelUp Solutionz delivers award-winning software, dynamic web experiences, and robust architectures designed to scale your business.
+            <strong className="font-bold text-slate-900">DevelUp Solutionz</strong> delivers award-winning software, dynamic web experiences, and robust architectures designed to scale your business.
           </motion.p>
 
           <motion.div

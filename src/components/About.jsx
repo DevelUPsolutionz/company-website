@@ -22,7 +22,7 @@ const About = () => {
               Intersection of <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-electric to-purple-neon">Design & Tech</span>
             </h2>
             <p className="text-slate-800 text-lg mb-6 leading-relaxed">
-              At DevelUp Solutionz, we combine psychological design principles with cutting-edge engineering to build products that not only work flawlessly but feel extraordinary to use.
+              At <strong className="font-bold text-slate-900">DevelUp Solutionz</strong>, we combine psychological design principles with cutting-edge engineering to build products that not only work flawlessly but feel extraordinary to use.
             </p>
             <p className="text-slate-800 text-lg mb-8 leading-relaxed">
               Our mission is to help forward-thinking brands transform complex challenges into elegant, scalable digital ecosystems.
