@@ -14,7 +14,7 @@ const Contact = () => {
     const form = e.target;
     const formData = new FormData(form);
 
-    fetch('https://script.google.com/macros/s/AKfycbxOQMpf3yf6HVOMzzUWoBuFAp2R9jZIcaG6l8j1I_JwQA0DbJ_hep_qmsB0dsBmGKg-cA/exec', {
+    fetch('https://script.google.com/macros/s/AKfycbyLNbURjWaaDJ2b2oGCWA-rPahtfyLW7Eqhjpdp20CeTE-eu299W8UVtUWRazsg59VwFw/exec', {
       method: 'POST',
       mode: 'no-cors',
       body: formData,
