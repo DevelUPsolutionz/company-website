@@ -52,7 +52,7 @@ const NeuralSphere = () => {
         <Float key={i} speed={2} rotationIntensity={1} floatIntensity={1}>
           <mesh position={[Math.cos(i * Math.PI / 2) * 3, Math.sin(i * Math.PI / 2) * 1, 0]}>
             <boxGeometry args={[0.8, 0.5, 0.05]} />
-            <meshPhysicalMaterial color="#ffffff" transmission={0.9} thickness={0.5} roughness={0.1} />
+            <meshStandardMaterial color="#ffffff" transparent opacity={0.35} roughness={0.15} metalness={0.2} />
           </mesh>
         </Float>
       ))}
@@ -90,9 +90,15 @@ const DigitalHighway = ({ position }) => {
   );
 };
 
-const Scene = () => {
+const Scene = ({ onLoaded }) => {
   const { camera } = useThree();
   const sceneRef = useRef();
+
+  useEffect(() => {
+    if (onLoaded) {
+      onLoaded();
+    }
+  }, [onLoaded]);
 
   useEffect(() => {
     const tl = gsap.timeline({
@@ -132,32 +138,62 @@ const Scene = () => {
 
       <Sparkles count={150} scale={[30, 30, 30]} size={2} speed={0.4} color="#2563FF" opacity={0.3} />
       <Sparkles count={150} scale={[30, 30, 30]} size={2} speed={0.4} color="#8B5CF6" opacity={0.3} />
-      <Environment preset="city" />
+      
+      {/* Generate environment map dynamically via local virtual lights instead of remote preset */}
+      <Environment resolution={256}>
+        <ambientLight intensity={0.5} />
+        <pointLight position={[5, 5, 5]} intensity={1.5} color="#2563FF" />
+        <pointLight position={[-5, 5, -5]} intensity={1.5} color="#8B5CF6" />
+      </Environment>
     </group>
   );
 };
 
 const Experience = () => {
   const [mountCanvas, setMountCanvas] = useState(false);
+  const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
-    const update = () => setMountCanvas(window.innerWidth >= 768);
+    let timeoutId;
+    const update = () => {
+      if (window.innerWidth >= 768) {
+        // Defer mounting canvas by 1.5 seconds to let initial page animations complete smoothly
+        timeoutId = setTimeout(() => {
+          setMountCanvas(true);
+        }, 1500);
+      } else {
+        setMountCanvas(false);
+      }
+    };
     update();
     window.addEventListener('resize', update);
-    return () => window.removeEventListener('resize', update);
+    return () => {
+      clearTimeout(timeoutId);
+      window.removeEventListener('resize', update);
+    };
   }, []);
 
   if (!mountCanvas) return null;
 
   return (
-    <div className="fixed top-0 left-0 w-full h-full -z-10 bg-[#f8fafc]">
-      <Canvas shadows dpr={[1, 2]} gl={{ antialias: true }}>
+    <div 
+      className={`fixed top-0 left-0 w-full h-full -z-10 bg-[#f8fafc] transition-opacity duration-1000 ${
+        isReady ? 'opacity-100' : 'opacity-0'
+      }`}
+    >
+      <Canvas 
+        shadows 
+        dpr={[1, 1.5]} 
+        gl={{ antialias: true, powerPreference: "high-performance" }}
+      >
         <PerspectiveCamera makeDefault position={[0, 0, 15]} fov={45} />
         <color attach="background" args={["#f8fafc"]} />
         <fog attach="fog" args={["#f8fafc", 10, 55]} />
         <ambientLight intensity={0.8} />
         <pointLight position={[10, 10, 10]} intensity={2.0} />
-        <Scene />
+        <React.Suspense fallback={null}>
+          <Scene onLoaded={() => setIsReady(true)} />
+        </React.Suspense>
       </Canvas>
     </div>
   );
