@@ -90,15 +90,9 @@ const DigitalHighway = ({ position }) => {
   );
 };
 
-const Scene = ({ onLoaded }) => {
+const Scene = () => {
   const { camera } = useThree();
   const sceneRef = useRef();
-
-  useEffect(() => {
-    if (onLoaded) {
-      onLoaded();
-    }
-  }, [onLoaded]);
 
   useEffect(() => {
     const tl = gsap.timeline({
@@ -151,36 +145,20 @@ const Scene = ({ onLoaded }) => {
 
 const Experience = () => {
   const [mountCanvas, setMountCanvas] = useState(false);
-  const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
-    let timeoutId;
     const update = () => {
-      if (window.innerWidth >= 768) {
-        // Defer mounting canvas by 1.5 seconds to let initial page animations complete smoothly
-        timeoutId = setTimeout(() => {
-          setMountCanvas(true);
-        }, 1500);
-      } else {
-        setMountCanvas(false);
-      }
+      setMountCanvas(window.innerWidth >= 768);
     };
     update();
     window.addEventListener('resize', update);
-    return () => {
-      clearTimeout(timeoutId);
-      window.removeEventListener('resize', update);
-    };
+    return () => window.removeEventListener('resize', update);
   }, []);
 
   if (!mountCanvas) return null;
 
   return (
-    <div 
-      className={`fixed top-0 left-0 w-full h-full -z-10 bg-[#f8fafc] transition-opacity duration-1000 ${
-        isReady ? 'opacity-100' : 'opacity-0'
-      }`}
-    >
+    <div className="fixed top-0 left-0 w-full h-full -z-10 bg-[#f8fafc]">
       <Canvas 
         shadows 
         dpr={[1, 1.5]} 
@@ -192,7 +170,7 @@ const Experience = () => {
         <ambientLight intensity={0.8} />
         <pointLight position={[10, 10, 10]} intensity={2.0} />
         <React.Suspense fallback={null}>
-          <Scene onLoaded={() => setIsReady(true)} />
+          <Scene />
         </React.Suspense>
       </Canvas>
     </div>
