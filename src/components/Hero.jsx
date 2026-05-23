@@ -49,8 +49,19 @@ const BouncingCard = ({ containerRef, mousePos, initialX, initialY, initialVx, i
   }, [containerRef]);
 
   useAnimationFrame(() => {
-    const { cw, ch, w, h, left, top } = dims.current;
-    if (cw === 0 || w === 0) return;
+    let { cw, ch, w, h, left, top } = dims.current;
+    
+    // Grab dimensions immediately on first frame if missing
+    if (cw === 0 || w === 0) {
+      if (!containerRef.current || !cardRef.current) return;
+      const cRect = containerRef.current.getBoundingClientRect();
+      const cardRect = cardRef.current.getBoundingClientRect();
+      if (cRect.width === 0 || cardRect.width === 0) return;
+      
+      cw = cRect.width; ch = cRect.height; w = cardRect.width; h = cardRect.height;
+      left = cRect.left; top = cRect.top;
+      dims.current = { cw, ch, w, h, left, top };
+    }
     
     let newX = x.get() + v.current.x;
     let newY = y.get() + v.current.y;
