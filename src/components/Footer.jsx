@@ -57,7 +57,7 @@ const Footer = () => {
               <img 
                 src="/logo.png" 
                 alt="DevelUp Solutionz" 
-                className="h-16 sm:h-18 md:h-20 w-auto object-contain mix-blend-multiply" 
+                className="h-24 sm:h-28 md:h-32 lg:h-36 w-auto object-contain mix-blend-multiply" 
               />
             </a>
             <p 
