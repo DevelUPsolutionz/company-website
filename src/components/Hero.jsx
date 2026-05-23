@@ -26,24 +26,11 @@ const BouncingCard = ({ containerRef, mousePos, initialX, initialY, initialVx, i
       }
     };
     
-    updateDims();
-    
-    const observer = new ResizeObserver(() => {
-      updateDims();
-    });
-    
-    if (containerRef.current) observer.observe(containerRef.current);
-    if (cardRef.current) observer.observe(cardRef.current);
-    
+    window.addEventListener('resize', updateDims);
     window.addEventListener('scroll', updateDims, { passive: true });
     
-    // Fallback interval to ensure dimensions are captured if fonts/assets load late
-    const interval = setInterval(updateDims, 500);
-    setTimeout(() => clearInterval(interval), 4000);
-    
     return () => {
-      observer.disconnect();
-      clearInterval(interval);
+      window.removeEventListener('resize', updateDims);
       window.removeEventListener('scroll', updateDims);
     };
   }, [containerRef]);
