@@ -22,18 +22,20 @@ const WeAreWorkingWith = () => {
             whileHover={{ y: -5 }}
             className="flex flex-col items-center gap-4 group cursor-pointer"
           >
-            <div className="w-32 h-32 md:w-40 md:h-40 rounded-full bg-[#111111] shadow-[0_10px_30px_rgba(0,0,0,0.1)] flex items-center justify-center overflow-hidden border-4 border-transparent group-hover:border-yellow-600/30 transition-all duration-300">
-              <img 
-                src="/aadai-logo.png" 
-                alt="AADAI" 
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                onError={(e) => {
-                  e.target.onerror = null;
-                  e.target.src = "https://via.placeholder.com/150?text=Logo";
-                }}
-              />
-            </div>
-            <span className="text-sm font-bold text-slate-500 tracking-wider uppercase group-hover:text-yellow-600 transition-colors">AADAI</span>
+            <a href="https://wearaadai.vercel.app/" target="_blank" rel="noopener noreferrer" className="flex flex-col items-center gap-4">
+              <div className="w-32 h-32 md:w-40 md:h-40 rounded-full bg-[#111111] shadow-[0_10px_30px_rgba(0,0,0,0.1)] flex items-center justify-center overflow-hidden border-4 border-transparent group-hover:border-yellow-600/30 transition-all duration-300">
+                <img 
+                  src="/aadai-logo.png" 
+                  alt="AADAI" 
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src = "https://via.placeholder.com/150?text=Logo";
+                  }}
+                />
+              </div>
+              <span className="text-sm font-bold text-slate-500 tracking-wider uppercase group-hover:text-yellow-600 transition-colors">AADAI</span>
+            </a>
           </motion.div>
         </div>
       </div>
