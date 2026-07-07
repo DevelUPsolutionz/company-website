@@ -120,11 +120,11 @@ const Hero = () => {
   }, []);
 
   return (
-    <section id="home" className="relative min-h-[100svh] pt-20 md:pt-28 lg:pt-32 pb-8 overflow-hidden flex items-center bg-[#f8fafc]">
-      <div className="container mx-auto px-4 sm:px-8 md:px-12 grid lg:grid-cols-2 gap-8 lg:gap-12 items-center relative z-10 w-full">
+    <section id="home" className="relative min-h-[100svh] pt-24 pb-6 overflow-hidden flex items-center bg-[#f8fafc]">
+      <div className="container mx-auto px-4 sm:px-8 md:px-12 grid lg:grid-cols-2 gap-6 lg:gap-8 items-center relative z-10 w-full">
 
         {/* Left Content */}
-        <div className="flex flex-col items-start text-left space-y-5 md:space-y-8 z-10 w-full">
+        <div className="flex flex-col items-start text-left space-y-4 md:space-y-6 z-10 w-full mt-4 lg:mt-0">
           <motion.div
             initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}
             className="inline-block px-3 py-1.5 md:px-4 md:py-2 rounded-full bg-blue-electric/10 border border-blue-electric/20 text-blue-electric font-semibold text-[10px] md:text-xs uppercase tracking-widest"
@@ -134,7 +134,7 @@ const Hero = () => {
 
           <motion.h1
             initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-4xl sm:text-5xl md:text-7xl lg:text-[4.5rem] xl:text-[5.5rem] font-black leading-[1.1] text-slate-900 tracking-tighter"
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[5rem] font-black leading-[1.05] text-slate-900 tracking-tighter"
           >
             We Build <br/>
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-electric to-purple-neon">
@@ -151,7 +151,7 @@ const Hero = () => {
 
           <motion.div
             initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.6 }}
-            className="flex flex-col sm:flex-row gap-3 md:gap-4 pt-2 w-full sm:w-auto"
+            className="flex flex-col sm:flex-row gap-3 pt-1 w-full sm:w-auto"
           >
             <a href="#contact" className="btn-premium flex items-center justify-center text-[11px] md:text-xs px-6 md:px-10 py-3.5 md:py-4 w-full sm:w-auto">
               Let's Talk
@@ -163,7 +163,7 @@ const Hero = () => {
         </div>
 
         {/* Right Bouncing Container */}
-        <div ref={containerRef} className="relative w-full h-[300px] sm:h-[380px] md:h-[450px] lg:h-[400px] xl:h-[480px] mt-4 lg:mt-0">
+        <div ref={containerRef} className="relative w-full h-[280px] sm:h-[350px] md:h-[400px] lg:h-[450px] mt-2 lg:mt-0">
           {/* Central Glow */}
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200px] h-[200px] md:w-[300px] md:h-[300px] lg:w-[400px] lg:h-[400px] bg-gradient-to-tr from-blue-electric/20 to-purple-neon/20 rounded-full blur-[80px]" />
 
