@@ -1,0 +1,187 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=IM+Fell+DW+Pica:ital@0;1&display=swap');
+
+@theme {
+  --color-blue-electric: #2563FF;
+  --color-purple-neon: #8B5CF6;
+  --color-slate-dark: #0f172a;
+  --color-slate-light: #64748b;
+
+  --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-heading: "Plus Jakarta Sans", sans-serif;
+  --font-chancery: "IM Fell DW Pica", "Palatino Linotype", Georgia, cursive;
+}
+
+@layer base {
+  html {
+    scroll-behavior: auto;
+  }
+  
+  body {
+    @apply bg-[#f8fafc] text-slate-dark font-sans antialiased overflow-x-hidden;
+    background-image: 
+      linear-gradient(to right, rgba(15, 23, 42, 0.02) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(15, 23, 42, 0.02) 1px, transparent 1px);
+    background-size: 3rem 3rem;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading tracking-tighter text-slate-dark;
+  }
+
+  /* Responsive typography */
+  h1 { font-size: clamp(1.6rem, 3.8vw, 2.5rem); }
+  h2 { font-size: clamp(1.3rem, 3.0vw, 1.75rem); }
+  h3 { font-size: clamp(1.125rem, 2.4vw, 1.25rem); }
+
+  /* Ensure media elements don't overflow on small screens */
+  img, picture, video, svg {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  /* Fluid root font-size for better scaling on mobile */
+  html { font-size: clamp(14px, 1.2vw + 12px, 16px); }
+}
+
+@layer components {
+  .section-container {
+    @apply min-h-screen relative flex items-center px-8 md:px-24;
+    max-width: 1200px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .glass-panel {
+    @apply bg-white/70 backdrop-blur-xl border border-slate-200/50 rounded-[2rem] p-8 md:p-12 shadow-[0_8px_30px_rgba(0,0,0,0.02)] transition-all duration-300;
+  }
+
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-blue-electric via-purple-neon to-[#6366f1];
+  }
+
+  .btn-premium {
+    @apply relative overflow-hidden rounded-full bg-slate-900 text-white px-10 py-4 font-black uppercase tracking-widest text-xs transition-all duration-500 hover:scale-105 hover:shadow-[0_8px_25px_rgba(15,23,42,0.15)];
+  }
+
+  .btn-outline {
+    @apply rounded-full border border-slate-200 bg-transparent px-10 py-4 font-black uppercase tracking-widest text-xs text-slate-800 transition-all duration-500 hover:bg-slate-50 hover:border-slate-300;
+  }
+}
+
+/* Lenis Customizations */
+html.lenis {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+/* Neural Background Dust */
+.neural-dust {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  background-image: radial-gradient(circle at 50% 50%, rgba(37, 99, 255, 0.02) 0%, transparent 80%);
+  z-index: -5;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #2563FF;
+}
+
+/* Sea Wave Animations */
+@keyframes wave1 {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-33.333%); }
+}
+
+@keyframes wave2 {
+  0% { transform: translateX(-33.333%); }
+  100% { transform: translateX(0); }
+}
+
+.animate-wave-1 {
+  animation: wave1 12s linear infinite;
+}
+
+.animate-wave-2 {
+  animation: wave2 18s linear infinite;
+}
+
+.animate-wave-3 {
+  animation: wave1 24s linear infinite;
+}
+
+/* Live Heartbeat Animations */
+@keyframes heartbeat-scan {
+  0% {
+    stroke-dashoffset: 250;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes heartbeat-thump {
+  0%, 20%, 45%, 100% {
+    transform: scale(1);
+    opacity: 0.45;
+  }
+  28% {
+    transform: scale(1.08) translateY(-1px);
+    opacity: 0.95;
+  }
+  32% {
+    transform: scale(1.02);
+    opacity: 0.65;
+  }
+  36% {
+    transform: scale(1.05) translateY(-0.5px);
+    opacity: 0.85;
+  }
+  40% {
+    transform: scale(1);
+    opacity: 0.45;
+  }
+}
+
+.heartbeat-container {
+  animation: heartbeat-thump 2.5s ease-in-out infinite;
+  transform-origin: center;
+  will-change: transform, opacity;
+}
+
+.heartbeat-bg {
+  stroke: rgba(255, 255, 255, 0.08);
+}
+
+.heartbeat-glow {
+  stroke: #2563ff;
+  stroke-dasharray: 60 190;
+  animation: heartbeat-scan 2.5s linear infinite;
+  filter: drop-shadow(0 0 6px #2563ff);
+}
+
+.heartbeat-pulse {
+  stroke: #ffffff;
+  stroke-dasharray: 40 210;
+  animation: heartbeat-scan 2.5s linear infinite;
+}
+
