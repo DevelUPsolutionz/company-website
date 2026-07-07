@@ -120,7 +120,7 @@ const Hero = () => {
   }, []);
 
   return (
-    <section id="home" className="relative min-h-screen pt-28 md:pt-36 lg:pt-48 pb-12 overflow-hidden flex items-center bg-[#f8fafc]">
+    <section id="home" className="relative min-h-[100svh] pt-20 md:pt-28 lg:pt-32 pb-8 overflow-hidden flex items-center bg-[#f8fafc]">
       <div className="container mx-auto px-4 sm:px-8 md:px-12 grid lg:grid-cols-2 gap-8 lg:gap-12 items-center relative z-10 w-full">
 
         {/* Left Content */}
@@ -134,7 +134,7 @@ const Hero = () => {
 
           <motion.h1
             initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-black leading-[1.1] text-slate-900 tracking-tighter"
+            className="text-4xl sm:text-5xl md:text-7xl lg:text-[4.5rem] xl:text-[5.5rem] font-black leading-[1.1] text-slate-900 tracking-tighter"
           >
             We Build <br/>
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-electric to-purple-neon">
@@ -144,7 +144,7 @@ const Hero = () => {
 
           <motion.p
             initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.4 }}
-            className="text-slate-700 text-base md:text-lg lg:text-xl max-w-xl leading-relaxed"
+            className="text-slate-700 text-sm sm:text-base md:text-lg lg:text-xl max-w-xl leading-relaxed"
           >
             <strong className="font-bold text-slate-900">DevelUp Solutionz</strong> delivers award-winning software, dynamic web experiences, and robust architectures designed to scale your business.
           </motion.p>
@@ -163,7 +163,7 @@ const Hero = () => {
         </div>
 
         {/* Right Bouncing Container */}
-        <div ref={containerRef} className="relative w-full h-[300px] sm:h-[380px] md:h-[450px] lg:h-[580px] mt-4 lg:mt-0">
+        <div ref={containerRef} className="relative w-full h-[300px] sm:h-[380px] md:h-[450px] lg:h-[400px] xl:h-[480px] mt-4 lg:mt-0">
           {/* Central Glow */}
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200px] h-[200px] md:w-[300px] md:h-[300px] lg:w-[400px] lg:h-[400px] bg-gradient-to-tr from-blue-electric/20 to-purple-neon/20 rounded-full blur-[80px]" />
 
