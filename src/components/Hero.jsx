@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { motion, useMotionValue, useAnimationFrame } from 'framer-motion';
 import { Code, Smartphone, Zap } from 'lucide-react';
 
@@ -7,6 +7,7 @@ const BouncingCard = ({ containerRef, mousePos, initialX, initialY, initialVx, i
   const y = useMotionValue(initialY);
   const v = useRef({ x: initialVx, y: initialVy });
   const cardRef = useRef(null);
+  const lastBounce = useRef(0);
 
   const dims = useRef({ cw: 0, ch: 0, w: 0, h: 0, left: 0, top: 0 });
 
@@ -53,25 +54,37 @@ const BouncingCard = ({ containerRef, mousePos, initialX, initialY, initialVx, i
     let newX = x.get() + v.current.x;
     let newY = y.get() + v.current.y;
     
-    if (newX <= 0) { newX = 0; v.current.x = Math.abs(v.current.x); }
-    if (newX + w >= cw) { newX = cw - w; v.current.x = -Math.abs(v.current.x); }
-    if (newY <= 0) { newY = 0; v.current.y = Math.abs(v.current.y); }
-    if (newY + h >= ch) { newY = ch - h; v.current.y = -Math.abs(v.current.y); }
+    const now = performance.now();
+    let justBounced = false;
+
+    if (newX <= 0) { newX = 0; v.current.x = Math.max(Math.abs(v.current.x), 2); justBounced = true; }
+    if (newX + w >= cw) { newX = cw - w; v.current.x = -Math.max(Math.abs(v.current.x), 2); justBounced = true; }
+    if (newY <= 0) { newY = 0; v.current.y = Math.max(Math.abs(v.current.y), 2); justBounced = true; }
+    if (newY + h >= ch) { newY = ch - h; v.current.y = -Math.max(Math.abs(v.current.y), 2); justBounced = true; }
+
+    if (justBounced) {
+      lastBounce.current = now;
+    }
     
-    const mouseLocalX = mousePos.current.x - left;
-    const mouseLocalY = mousePos.current.y - top;
+    const timeSinceBounce = now - lastBounce.current;
     
-    const cardCenterX = newX + w / 2;
-    const cardCenterY = newY + h / 2;
-    
-    const dx = cardCenterX - mouseLocalX;
-    const dy = cardCenterY - mouseLocalY;
-    const dist = Math.sqrt(dx * dx + dy * dy);
-    
-    if (dist < 150 && dist > 0) {
-      const force = (150 - dist) / 150;
-      v.current.x += (dx / dist) * force * 1.5;
-      v.current.y += (dy / dist) * force * 1.5;
+    // Ignore mouse for 400ms after bouncing off a wall to avoid getting trapped in corners
+    if (timeSinceBounce > 400) {
+      const mouseLocalX = mousePos.current.x - left;
+      const mouseLocalY = mousePos.current.y - top;
+      
+      const cardCenterX = newX + w / 2;
+      const cardCenterY = newY + h / 2;
+      
+      const dx = cardCenterX - mouseLocalX;
+      const dy = cardCenterY - mouseLocalY;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      
+      if (dist < 150 && dist > 0) {
+        const force = (150 - dist) / 150;
+        v.current.x += (dx / dist) * force * 1.5;
+        v.current.y += (dy / dist) * force * 1.5;
+      }
     }
     
     const currentSpeed = Math.sqrt(v.current.x ** 2 + v.current.y ** 2);

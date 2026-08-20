@@ -46,6 +46,8 @@ const About = () => {
             <img 
               src="/about-image.png" 
               alt="About DevelUp Solutionz" 
+              loading="lazy"
+              decoding="async"
               className="relative z-10 w-full h-auto object-cover rounded-3xl shadow-[0_8px_40px_rgba(37,99,255,0.08)] border border-slate-200/50"
             />
           </motion.div>
