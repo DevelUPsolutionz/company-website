@@ -56,7 +56,7 @@ const Footer = () => {
             <a href="#home" className="flex items-center gap-3 mb-8">
               <img 
                 src="/logo.png" 
-                alt="DevelUp Solutionz" 
+                alt="DevelUp Solutionz - Custom Software &amp; Web Development Company Logo" 
                 className="h-24 sm:h-28 md:h-32 lg:h-36 w-auto object-contain mix-blend-multiply" 
               />
             </a>

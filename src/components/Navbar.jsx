@@ -39,7 +39,7 @@ const Navbar = () => {
         <a href="#home" className="flex items-center gap-3 group">
           <img 
             src="/logo.png" 
-            alt="DevelUp Solutionz" 
+            alt="DevelUp Solutionz - Web &amp; Mobile App Development Agency Logo" 
             className="h-12 sm:h-14 md:h-16 lg:h-20 w-auto object-contain transition-transform duration-300 group-hover:scale-105 mix-blend-multiply" 
           />
         </a>
