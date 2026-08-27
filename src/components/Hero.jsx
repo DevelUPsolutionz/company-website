@@ -1,8 +1,8 @@
 import { useEffect, useRef } from 'react';
-import { motion, useMotionValue, useAnimationFrame } from 'framer-motion';
+import { motion, useMotionValue, useAnimationFrame, useInView } from 'framer-motion';
 import { Code, Smartphone, Zap } from 'lucide-react';
 
-const BouncingCard = ({ containerRef, mousePos, initialX, initialY, initialVx, initialVy, children, className }) => {
+const BouncingCard = ({ containerRef, mousePos, initialX, initialY, initialVx, initialVy, isVisible, children, className }) => {
   const x = useMotionValue(initialX);
   const y = useMotionValue(initialY);
   const v = useRef({ x: initialVx, y: initialVy });
@@ -21,23 +21,24 @@ const BouncingCard = ({ containerRef, mousePos, initialX, initialY, initialVx, i
           ch: cRect.height,
           w: cardRect.width,
           h: cardRect.height,
-          left: cRect.left,
-          top: cRect.top
+          left: cRect.left + window.scrollX,
+          top: cRect.top + window.scrollY
         };
       }
     };
     
-    window.addEventListener('resize', updateDims);
-    window.addEventListener('scroll', updateDims, { passive: true });
+    updateDims();
+    window.addEventListener('resize', updateDims, { passive: true });
     
     return () => {
       window.removeEventListener('resize', updateDims);
-      window.removeEventListener('scroll', updateDims);
     };
   }, [containerRef]);
 
   useAnimationFrame(() => {
-    let { cw, ch, w, h, left, top } = dims.current;
+    if (!isVisible) return;
+
+    let { cw, ch, w, h } = dims.current;
     
     // Grab dimensions immediately on first frame if missing
     if (cw === 0 || w === 0) {
@@ -47,8 +48,14 @@ const BouncingCard = ({ containerRef, mousePos, initialX, initialY, initialVx, i
       if (cRect.width === 0 || cardRect.width === 0) return;
       
       cw = cRect.width; ch = cRect.height; w = cardRect.width; h = cardRect.height;
-      left = cRect.left; top = cRect.top;
-      dims.current = { cw, ch, w, h, left, top };
+      dims.current = { 
+        cw, 
+        ch, 
+        w, 
+        h, 
+        left: cRect.left + window.scrollX, 
+        top: cRect.top + window.scrollY 
+      };
     }
     
     let newX = x.get() + v.current.x;
@@ -70,8 +77,11 @@ const BouncingCard = ({ containerRef, mousePos, initialX, initialY, initialVx, i
     
     // Ignore mouse for 400ms after bouncing off a wall to avoid getting trapped in corners
     if (timeSinceBounce > 400) {
-      const mouseLocalX = mousePos.current.x - left;
-      const mouseLocalY = mousePos.current.y - top;
+      const { left, top } = dims.current;
+      const mousePageX = mousePos.current.x + window.scrollX;
+      const mousePageY = mousePos.current.y + window.scrollY;
+      const mouseLocalX = mousePageX - left;
+      const mouseLocalY = mousePageY - top;
       
       const cardCenterX = newX + w / 2;
       const cardCenterY = newY + h / 2;
@@ -115,16 +125,16 @@ const BouncingCard = ({ containerRef, mousePos, initialX, initialY, initialVx, i
 
 const Hero = () => {
   const containerRef = useRef(null);
+  const isVisible = useInView(containerRef, { margin: "100px" });
   const mousePos = useRef({ x: -1000, y: -1000 });
-
 
   useEffect(() => {
     const handleMouseMove = (e) => { mousePos.current = { x: e.clientX, y: e.clientY }; };
     const handleTouchMove = (e) => { if (e.touches.length > 0) mousePos.current = { x: e.touches[0].clientX, y: e.touches[0].clientY }; };
     const handleTouchEnd = () => { mousePos.current = { x: -1000, y: -1000 }; };
-    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('mousemove', handleMouseMove, { passive: true });
     window.addEventListener('touchmove', handleTouchMove, { passive: true });
-    window.addEventListener('touchend', handleTouchEnd);
+    window.addEventListener('touchend', handleTouchEnd, { passive: true });
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('touchmove', handleTouchMove);
@@ -184,6 +194,7 @@ const Hero = () => {
           <BouncingCard
             containerRef={containerRef} mousePos={mousePos}
             initialX={10} initialY={10} initialVx={1.2} initialVy={1.5}
+            isVisible={isVisible}
             className="w-36 sm:w-44 md:w-52 lg:w-60 bg-gradient-to-br from-blue-electric to-purple-neon border border-white/20 shadow-[0_20px_40px_rgba(139,92,246,0.25)] rounded-2xl md:rounded-3xl p-4 md:p-5 lg:p-6 cursor-default"
           >
             <div className="w-8 h-8 md:w-10 md:h-10 rounded-lg md:rounded-xl bg-white/20 flex items-center justify-center text-white mb-2 md:mb-3 pointer-events-none">
@@ -198,6 +209,7 @@ const Hero = () => {
           <BouncingCard
             containerRef={containerRef} mousePos={mousePos}
             initialX={70} initialY={130} initialVx={-1.5} initialVy={1.2}
+            isVisible={isVisible}
             className="w-40 sm:w-48 md:w-56 lg:w-64 bg-white/85 backdrop-blur-xl border border-white/60 shadow-[0_20px_40px_rgba(139,92,246,0.12)] rounded-2xl md:rounded-3xl p-4 md:p-5 lg:p-6 cursor-default"
           >
             <div className="w-8 h-8 md:w-10 md:h-10 rounded-lg md:rounded-xl bg-purple-neon/10 flex items-center justify-center text-purple-neon mb-2 md:mb-3 pointer-events-none">
@@ -212,6 +224,7 @@ const Hero = () => {
           <BouncingCard
             containerRef={containerRef} mousePos={mousePos}
             initialX={30} initialY={220} initialVx={1.5} initialVy={-1.5}
+            isVisible={isVisible}
             className="w-36 sm:w-40 md:w-48 lg:w-52 bg-slate-900/90 backdrop-blur-xl border border-slate-700 shadow-[0_20px_40px_rgba(0,0,0,0.2)] rounded-2xl md:rounded-3xl p-4 md:p-5 lg:p-6 cursor-default"
           >
             <div className="w-8 h-8 md:w-10 md:h-10 rounded-lg md:rounded-xl bg-blue-400/20 flex items-center justify-center text-blue-400 mb-2 md:mb-3 pointer-events-none">

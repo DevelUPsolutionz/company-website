@@ -10,7 +10,6 @@ import WhyChooseUs from './components/WhyChooseUs';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import WeAreWorkingWith from './components/WeAreWorkingWith';
-import Experience from './components/Experience';
 import IntroAnimation from './components/IntroAnimation';
 
 function App() {
@@ -35,8 +34,6 @@ function App() {
 
       {/* Main app content fades in softly or just exists under the absolute intro */}
       <div style={{ opacity: showIntro ? 0 : 1, transition: 'opacity 0.8s ease-in' }}>
-        <Experience />
-
         <SmoothScroll>
           <div className="bg-[#f8fafc] min-h-screen text-slate-900 overflow-x-hidden font-sans">
             <Navbar />
