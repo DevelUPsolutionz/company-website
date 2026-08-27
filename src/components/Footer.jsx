@@ -3,7 +3,18 @@ import { Send } from 'lucide-react';
 
 const Footer = () => {
   const quickLinks = ['Home', 'About', 'Services', 'Why Us', 'Contact'];
-  const services = ['Web Development', 'Mobile Apps', 'UI/UX Design', 'AI Integration', 'SaaS Platforms', 'Cloud Solutions'];
+  const services = [
+    'Web Development',
+    'App Development',
+    'Custom Software',
+    'API Integration',
+    'AI Video Creation',
+    'Posters & Creatives',
+    'Logo & Branding',
+    'Data Analytics',
+    'Visualization & Forecasting',
+    'AI Powered Solutions'
+  ];
 
   return (
     <footer className="relative pt-20 md:pt-32 pb-10 overflow-hidden bg-blue-200">

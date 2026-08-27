@@ -14,7 +14,7 @@
 
 @layer base {
   html {
-    scroll-behavior: auto;
+    scroll-behavior: smooth;
   }
   
   body {
@@ -69,14 +69,6 @@
   .btn-outline {
     @apply rounded-full border border-slate-200 bg-transparent px-10 py-4 font-black uppercase tracking-widest text-xs text-slate-800 transition-all duration-500 hover:bg-slate-50 hover:border-slate-300;
   }
-}
-
-/* Lenis Customizations */
-html.lenis {
-  height: auto;
-}
-.lenis.lenis-smooth {
-  scroll-behavior: auto !important;
 }
 
 /* Neural Background Dust */
