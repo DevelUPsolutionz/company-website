@@ -127,142 +127,32 @@ const servicesList = [
   }
 ];
 
-const ServiceCardEffect = ({ type, isActive, color, gradient }) => {
+const ServiceCardEffect = ({ isActive, gradient }) => {
   return (
     <AnimatePresence>
       {isActive && (
         <motion.div 
-          className="absolute inset-0 z-0 pointer-events-none flex items-center justify-center overflow-hidden"
+          className="absolute inset-0 z-0 pointer-events-none overflow-hidden rounded-3xl"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
         >
-          {/* Radiant Expansion Wave */}
+          {/* Gentle Ambient Color Aura - No Harsh White Glitch */}
           <motion.div
-            initial={{ scale: 0.2, opacity: 0.8 }}
-            animate={{ scale: [0.2, 1.8, 2.5], opacity: [0.8, 0.4, 0] }}
-            transition={{ duration: 0.7, ease: "easeOut" }}
-            className={`absolute w-36 h-36 rounded-full bg-gradient-to-br ${gradient} blur-xl opacity-20`}
+            initial={{ scale: 0.5, opacity: 0 }}
+            animate={{ scale: [0.5, 1.2, 1.4], opacity: [0, 0.25, 0] }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className={`absolute -top-10 -right-10 w-48 h-48 rounded-full bg-gradient-to-br ${gradient} blur-2xl`}
           />
 
-          {/* Flash Light Beam */}
+          {/* Smooth Subtle Corner Pulse */}
           <motion.div
-            initial={{ x: '-100%', opacity: 0, skewX: -20 }}
-            animate={{ x: '100%', opacity: [0, 0.5, 0] }}
-            transition={{ duration: 0.6, ease: "linear" }}
-            className="absolute top-0 bottom-0 w-1/2 bg-gradient-to-r from-transparent via-white/20 to-transparent blur-md"
+            initial={{ scale: 0.4, opacity: 0 }}
+            animate={{ scale: [0.4, 1.1, 1.3], opacity: [0, 0.2, 0] }}
+            transition={{ duration: 0.9, ease: "easeOut", delay: 0.1 }}
+            className={`absolute -bottom-10 -left-10 w-48 h-48 rounded-full bg-gradient-to-tr ${gradient} blur-2xl`}
           />
-
-          {/* Type-Specific Background Visual Effect */}
-          {type === 'web' && (
-            <motion.div
-              initial={{ scale: 0, rotate: -20, opacity: 0 }}
-              animate={{ scale: [0, 1.6, 2.2], opacity: [0, 0.35, 0], rotate: 0 }}
-              transition={{ duration: 0.7, ease: "easeOut" }}
-              className={`${color} blur-[1px]`}
-            >
-              <Code size={140} strokeWidth={1.5} />
-            </motion.div>
-          )}
-
-          {type === 'app' && (
-            <motion.div
-              initial={{ scale: 0.3, opacity: 0 }}
-              animate={{ scale: [0.3, 1.5, 2.2], opacity: [0, 0.35, 0] }}
-              transition={{ duration: 0.7, ease: "easeOut" }}
-              className={`${color} blur-[1px]`}
-            >
-              <Smartphone size={140} strokeWidth={1.5} />
-            </motion.div>
-          )}
-
-          {type === 'software' && (
-            <motion.div
-              initial={{ scale: 0.4, y: 30, opacity: 0 }}
-              animate={{ scale: [0.4, 1.6, 2.2], y: -20, opacity: [0, 0.35, 0] }}
-              transition={{ duration: 0.7, ease: "easeOut" }}
-              className={`${color} blur-[1px]`}
-            >
-              <Layers size={140} strokeWidth={1.5} />
-            </motion.div>
-          )}
-
-          {type === 'api' && (
-            <motion.div
-              initial={{ scale: 0.2, rotate: -45, opacity: 0 }}
-              animate={{ scale: [0.2, 1.6, 2.2], rotate: 45, opacity: [0, 0.4, 0] }}
-              transition={{ duration: 0.7, ease: "easeOut" }}
-              className={`${color} blur-[1px]`}
-            >
-              <Network size={140} strokeWidth={1.5} />
-            </motion.div>
-          )}
-
-          {type === 'video' && (
-            <motion.div
-              initial={{ scale: 0.3, opacity: 0 }}
-              animate={{ scale: [0.3, 1.8, 2.4], opacity: [0, 0.4, 0] }}
-              transition={{ duration: 0.7, ease: "easeOut" }}
-              className={`${color} blur-[1px]`}
-            >
-              <Video size={140} strokeWidth={1.5} />
-            </motion.div>
-          )}
-
-          {type === 'creatives' && (
-            <motion.div
-              initial={{ scale: 0, rotate: 30, opacity: 0 }}
-              animate={{ scale: [0, 1.8, 2.4], rotate: -20, opacity: [0, 0.45, 0] }}
-              transition={{ duration: 0.7, ease: "easeOut" }}
-              className={`${color} blur-[1px]`}
-            >
-              <Sparkles size={140} strokeWidth={1.5} />
-            </motion.div>
-          )}
-
-          {type === 'brand' && (
-            <motion.div
-              initial={{ scale: 0.2, opacity: 0 }}
-              animate={{ scale: [0.2, 1.6, 2.2], opacity: [0, 0.4, 0] }}
-              transition={{ duration: 0.7, ease: "easeOut" }}
-              className={`${color} blur-[1px]`}
-            >
-              <PenTool size={140} strokeWidth={1.5} />
-            </motion.div>
-          )}
-
-          {type === 'analytics' && (
-            <motion.div
-              initial={{ scale: 0.3, y: 20, opacity: 0 }}
-              animate={{ scale: [0.3, 1.6, 2.2], y: -20, opacity: [0, 0.35, 0] }}
-              transition={{ duration: 0.7, ease: "easeOut" }}
-              className={`${color} blur-[1px]`}
-            >
-              <BarChart3 size={140} strokeWidth={1.5} />
-            </motion.div>
-          )}
-
-          {type === 'forecast' && (
-            <motion.div
-              initial={{ scale: 0.2, x: -20, opacity: 0 }}
-              animate={{ scale: [0.2, 1.6, 2.2], x: 20, opacity: [0, 0.4, 0] }}
-              transition={{ duration: 0.7, ease: "easeOut" }}
-              className={`${color} blur-[1px]`}
-            >
-              <TrendingUp size={140} strokeWidth={1.5} />
-            </motion.div>
-          )}
-
-          {type === 'ai' && (
-            <motion.div
-              initial={{ scale: 0.3, opacity: 0 }}
-              animate={{ scale: [0.3, 1.8, 2.4], opacity: [0, 0.4, 0] }}
-              transition={{ duration: 0.7, ease: "easeOut" }}
-              className={`${color} blur-[1px]`}
-            >
-              <Bot size={140} strokeWidth={1.5} />
-            </motion.div>
-          )}
         </motion.div>
       )}
     </AnimatePresence>
@@ -273,44 +163,44 @@ const ServiceCard = ({ service, idx }) => {
   const [isActive, setIsActive] = useState(false);
 
   const handleInteraction = () => {
+    setIsActive(true);
+  };
+
+  const handleMouseLeave = () => {
     setIsActive(false);
-    setTimeout(() => {
-      setIsActive(true);
-    }, 10);
   };
 
   useEffect(() => {
     let timer;
     if (isActive) {
-      timer = setTimeout(() => setIsActive(false), 1000);
+      timer = setTimeout(() => setIsActive(false), 900);
     }
     return () => clearTimeout(timer);
   }, [isActive]);
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 30 }}
+      initial={{ opacity: 0, y: 25 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: false, amount: 0.15 }}
-      transition={{ delay: idx * 0.05, duration: 0.5, ease: "easeOut" }}
-      whileHover={{ y: -6, transition: { duration: 0.25 } }}
+      transition={{ delay: idx * 0.04, duration: 0.5, ease: "easeOut" }}
+      whileHover={{ y: -5, transition: { duration: 0.25 } }}
       onMouseEnter={handleInteraction}
+      onMouseLeave={handleMouseLeave}
       onClick={handleInteraction}
-      className="group relative bg-slate-800/60 backdrop-blur-xl border border-slate-700/60 rounded-3xl p-6 sm:p-7 md:p-8 cursor-pointer overflow-hidden transition-all duration-500 hover:shadow-[0_20px_40px_rgba(37,99,255,0.15)] hover:border-slate-600 flex flex-col justify-between"
+      className="group relative bg-slate-800/70 border border-slate-700/60 rounded-3xl p-6 sm:p-7 md:p-8 cursor-pointer overflow-hidden transition-all duration-300 hover:shadow-[0_20px_40px_rgba(0,0,0,0.3)] hover:border-slate-500/50 flex flex-col justify-between"
     >
-      {/* Dynamic Animated Effect on Hover / Tap */}
+      {/* Silky Glitch-Free Ambient Aura on Hover / Tap */}
       <ServiceCardEffect 
-        type={service.id} 
         isActive={isActive} 
-        color={service.color} 
         gradient={service.gradient} 
       />
 
       {/* Top Accent Gradient Border */}
       <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${service.gradient} rounded-t-3xl z-10`} />
 
-      {/* Hover Background Accent Glow */}
-      <div className={`absolute inset-0 bg-gradient-to-br ${service.gradient} opacity-0 group-hover:opacity-[0.06] transition-opacity duration-500 rounded-3xl z-10 pointer-events-none`} />
+      {/* Smooth Ambient Background Glow on Hover */}
+      <div className={`absolute inset-0 bg-gradient-to-br ${service.gradient} opacity-0 group-hover:opacity-[0.07] transition-opacity duration-400 rounded-3xl z-0 pointer-events-none`} />
 
       {/* Card Content Top */}
       <div className="relative z-10 pointer-events-none">
