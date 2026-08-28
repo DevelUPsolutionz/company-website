@@ -34,7 +34,7 @@ const Navbar = () => {
     { name: 'About', href: '#about' },
     { name: 'Services', href: '#services' },
     { name: 'Why Us', href: '#why-us' },
-    { name: 'Works', href: '#works' },
+    { name: 'Collaborations', href: '#collaborations' },
   ];
 
   const handleNavClick = (e, href) => {

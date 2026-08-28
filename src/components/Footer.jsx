@@ -2,7 +2,7 @@ import React from 'react';
 import { Send, Phone, Mail, MapPin } from 'lucide-react';
 
 const Footer = () => {
-  const quickLinks = ['Home', 'About', 'Services', 'Why Us', 'Contact'];
+  const quickLinks = ['Home', 'About', 'Services', 'Why Us', 'Collaborations', 'Contact'];
   const services = [
     'Web Development',
     'App Development',
@@ -63,16 +63,16 @@ const Footer = () => {
       <div className="container mx-auto px-4 sm:px-8">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 mb-10">
           {/* Brand */}
-          <div className="col-span-2 lg:col-span-1">
+          <div className="col-span-2 lg:col-span-1 flex flex-col items-center lg:items-start text-center lg:text-left">
             <a href="#home" className="flex items-center gap-3 mb-8">
               <img 
                 src="/logo.png" 
-                alt="DevelUp Solutionz - Custom Software &amp; Web Development Company Logo" 
+                alt="DevelUp Solutionz - Custom Software & Web Development Company Logo" 
                 className="h-24 sm:h-28 md:h-32 lg:h-36 w-auto object-contain mix-blend-multiply" 
               />
             </a>
             <p 
-              className="text-blue-electric leading-relaxed mb-8 italic"
+              className="text-blue-electric leading-relaxed mb-8 italic max-w-sm"
               style={{ fontFamily: 'var(--font-chancery)', fontSize: '1.25rem', letterSpacing: '0.01em' }}
             >
               Engineering next-generation digital solutions for forward-thinking businesses.
@@ -131,13 +131,13 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Signal / Contact Info */}
-          <div className="col-span-2 lg:col-span-1 flex flex-col items-start text-left mt-4 lg:mt-0">
+          {/* Signal / Contact Info - Centered on Mobile */}
+          <div className="col-span-2 lg:col-span-1 flex flex-col items-center text-center lg:items-start lg:text-left mt-6 lg:mt-0">
             <h4 className="text-[10px] font-black uppercase tracking-[0.3em] text-black mb-6">Direct Signal</h4>
-            <div className="space-y-3.5 text-sm">
+            <div className="space-y-4 text-sm flex flex-col items-center lg:items-start w-full">
               <a 
                 href="tel:+919489918729"
-                className="flex items-center gap-2.5 text-slate-800 hover:text-blue-900 transition-colors font-semibold"
+                className="flex items-center justify-center lg:justify-start gap-2.5 text-slate-800 hover:text-blue-900 transition-colors font-semibold"
               >
                 <Phone size={16} className="text-slate-900 shrink-0" />
                 <span>+91 9489918729</span>
@@ -145,14 +145,14 @@ const Footer = () => {
 
               <a 
                 href="mailto:develupsolutionz@gmail.com"
-                className="flex items-center gap-2.5 text-slate-800 hover:text-blue-900 transition-colors font-medium break-all"
+                className="flex items-center justify-center lg:justify-start gap-2.5 text-slate-800 hover:text-blue-900 transition-colors font-medium break-all"
               >
                 <Mail size={16} className="text-slate-900 shrink-0" />
                 <span>develupsolutionz@gmail.com</span>
               </a>
 
-              <div className="flex items-start gap-2.5 text-slate-800 font-medium">
-                <MapPin size={16} className="text-slate-900 shrink-0 mt-0.5" />
+              <div className="flex items-center justify-center lg:justify-start gap-2.5 text-slate-800 font-medium text-center lg:text-left">
+                <MapPin size={16} className="text-slate-900 shrink-0" />
                 <span>Thanjavur, Tamil Nadu - 613001</span>
               </div>
             </div>
@@ -160,7 +160,7 @@ const Footer = () => {
         </div>
 
         {/* Bottom Bar */}
-        <div className="border-t border-slate-300 pt-8 flex items-center justify-center text-xs text-black font-black uppercase tracking-widest">
+        <div className="border-t border-slate-300 pt-8 flex items-center justify-center text-xs text-black font-black uppercase tracking-widest text-center">
           <p>&copy; {new Date().getFullYear()} DevelUp Solutionz. All Rights Reserved.</p>
         </div>
       </div>
