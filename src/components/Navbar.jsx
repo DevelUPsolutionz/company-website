@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 
@@ -34,7 +34,29 @@ const Navbar = () => {
     { name: 'About', href: '#about' },
     { name: 'Services', href: '#services' },
     { name: 'Why Us', href: '#why-us' },
+    { name: 'Works', href: '#works' },
   ];
+
+  const handleNavClick = (e, href) => {
+    e.preventDefault();
+    setIsMobileMenuOpen(false);
+
+    const targetId = href.replace('#', '');
+    const element = document.getElementById(targetId);
+    
+    if (element) {
+      setTimeout(() => {
+        const navOffset = 75;
+        const elementPosition = element.getBoundingClientRect().top + window.scrollY;
+        const offsetPosition = elementPosition - navOffset;
+
+        window.scrollTo({
+          top: offsetPosition > 0 ? offsetPosition : 0,
+          behavior: 'smooth'
+        });
+      }, 50);
+    }
+  };
 
   return (
     <header
@@ -45,37 +67,46 @@ const Navbar = () => {
       }`}
     >
       <div className="container mx-auto px-4 sm:px-6 md:px-8 flex items-center justify-between">
-        <a href="#home" className="flex items-center gap-3 group">
+        <a 
+          href="#home" 
+          onClick={(e) => handleNavClick(e, '#home')}
+          className="flex items-center gap-3 group"
+        >
           <img 
             src="/logo.png" 
-            alt="DevelUp Solutionz - Web &amp; Mobile App Development Agency Logo" 
+            alt="DevelUp Solutionz - Web & Mobile App Development Agency Logo" 
             className="h-12 sm:h-14 md:h-16 lg:h-20 w-auto object-contain transition-transform duration-300 group-hover:scale-105 mix-blend-multiply" 
           />
         </a>
 
-        <nav className="hidden md:flex items-center gap-10">
+        <nav className="hidden md:flex items-center gap-8 lg:gap-10">
           {navLinks.map((link) => (
             <a
               key={link.name}
               href={link.href}
+              onClick={(e) => handleNavClick(e, link.href)}
               className="text-xs font-black uppercase tracking-[0.2em] text-black hover:text-slate-700 transition-colors"
             >
               {link.name}
             </a>
           ))}
-          <a href="#contact" className="btn-premium py-2.5 px-7 text-xs">
+          <a 
+            href="#contact" 
+            onClick={(e) => handleNavClick(e, '#contact')}
+            className="btn-premium py-2.5 px-7 text-xs"
+          >
             Start Project
           </a>
         </nav>
 
         <button
-          className="md:hidden text-slate-600 hover:text-slate-900"
+          className="md:hidden text-slate-600 hover:text-slate-900 p-2 focus:outline-none"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
           aria-expanded={isMobileMenuOpen}
           aria-controls="mobile-menu"
         >
-          {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          {isMobileMenuOpen ? <X size={26} /> : <Menu size={26} />}
         </button>
       </div>
 
@@ -85,26 +116,27 @@ const Navbar = () => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.25, ease: "easeInOut" }}
             id="mobile-menu"
-            className="md:hidden overflow-y-auto max-h-[calc(100vh-80px)] bg-white/95 backdrop-blur-xl border-t border-slate-200/50 shadow-lg"
+            className="md:hidden overflow-hidden bg-white/95 backdrop-blur-2xl border-t border-slate-200/60 shadow-xl"
           >
-            <ul className="flex flex-col px-6 py-6 gap-6">
+            <ul className="flex flex-col px-6 py-6 gap-5">
               {navLinks.map((link) => (
                 <li key={link.name}>
                   <a
                     href={link.href}
-                    className="text-xs font-black uppercase tracking-widest text-black hover:text-slate-700 transition-colors"
-                    onClick={() => setIsMobileMenuOpen(false)}
+                    onClick={(e) => handleNavClick(e, link.href)}
+                    className="block text-sm font-black uppercase tracking-widest text-slate-900 hover:text-blue-600 active:text-blue-600 transition-colors py-1 cursor-pointer"
                   >
                     {link.name}
                   </a>
                 </li>
               ))}
-              <li>
+              <li className="pt-2">
                 <a
                   href="#contact"
-                  className="inline-block btn-premium py-3 px-8 text-xs"
-                  onClick={() => setIsMobileMenuOpen(false)}
+                  onClick={(e) => handleNavClick(e, '#contact')}
+                  className="block text-center btn-premium py-3 px-8 text-xs font-bold uppercase tracking-wider"
                 >
                   Start Project
                 </a>

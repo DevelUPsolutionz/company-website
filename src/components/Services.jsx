@@ -16,7 +16,7 @@ import {
 
 const servicesList = [
   {
-    id: 'web',
+    id: 'web-development',
     tag: 'Web & Cloud',
     icon: <Code size={26} />,
     title: 'Web Development',
@@ -27,7 +27,7 @@ const servicesList = [
     badgeBorder: 'border-blue-500/20'
   },
   {
-    id: 'app',
+    id: 'app-development',
     tag: 'iOS & Android',
     icon: <Smartphone size={26} />,
     title: 'App Development',
@@ -38,7 +38,7 @@ const servicesList = [
     badgeBorder: 'border-purple-500/20'
   },
   {
-    id: 'software',
+    id: 'custom-software',
     tag: 'Enterprise & SaaS',
     icon: <Layers size={26} />,
     title: 'Custom Software Solutions',
@@ -49,7 +49,7 @@ const servicesList = [
     badgeBorder: 'border-amber-500/20'
   },
   {
-    id: 'api',
+    id: 'api-integration',
     tag: 'Integrations',
     icon: <Network size={26} />,
     title: 'API & System Integration',
@@ -60,7 +60,7 @@ const servicesList = [
     badgeBorder: 'border-emerald-500/20'
   },
   {
-    id: 'video',
+    id: 'ai-video',
     tag: 'Motion & Gen-AI',
     icon: <Video size={26} />,
     title: 'AI Video Creation',
@@ -71,7 +71,7 @@ const servicesList = [
     badgeBorder: 'border-rose-500/20'
   },
   {
-    id: 'creatives',
+    id: 'posters-creatives',
     tag: 'Marketing Visuals',
     icon: <Sparkles size={26} />,
     title: 'Posters & Creatives',
@@ -82,7 +82,7 @@ const servicesList = [
     badgeBorder: 'border-fuchsia-500/20'
   },
   {
-    id: 'brand',
+    id: 'logo-branding',
     tag: 'Brand Identity',
     icon: <PenTool size={26} />,
     title: 'Logo & Brand Identity',
@@ -93,7 +93,7 @@ const servicesList = [
     badgeBorder: 'border-yellow-500/20'
   },
   {
-    id: 'analytics',
+    id: 'data-analytics',
     tag: 'BI & Insights',
     icon: <BarChart3 size={26} />,
     title: 'Data Analytics',
@@ -104,7 +104,7 @@ const servicesList = [
     badgeBorder: 'border-cyan-500/20'
   },
   {
-    id: 'forecast',
+    id: 'data-visualization',
     tag: 'Predictive Models',
     icon: <TrendingUp size={26} />,
     title: 'Data Visualization & Forecasting',
@@ -115,7 +115,7 @@ const servicesList = [
     badgeBorder: 'border-teal-500/20'
   },
   {
-    id: 'ai',
+    id: 'ai-solutions',
     tag: 'LLM & Agents',
     icon: <Bot size={26} />,
     title: 'AI Powered Solutions',
@@ -126,6 +126,51 @@ const servicesList = [
     badgeBorder: 'border-indigo-500/20'
   }
 ];
+
+const ServiceGraphic = ({ service }) => {
+  const [imgSrc, setImgSrc] = useState(`/services/${service.id}.webp`);
+  const [hasError, setHasError] = useState(false);
+
+  const handleError = () => {
+    if (imgSrc.endsWith('.webp')) {
+      setImgSrc(`/services/${service.id}.jpg`);
+    } else if (imgSrc.endsWith('.jpg')) {
+      setImgSrc(`/services/${service.id}.png`);
+    } else {
+      setHasError(true);
+    }
+  };
+
+  if (hasError) {
+    return (
+      <motion.div 
+        whileHover={{ scale: 1.08, rotate: -4 }} 
+        className={`w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-br ${service.gradient} flex items-center justify-center text-white shadow-lg shrink-0 transition-transform duration-300 group-hover:scale-105`}
+      >
+        {service.icon}
+      </motion.div>
+    );
+  }
+
+  return (
+    <div className="relative shrink-0">
+      {/* Soft Ambient Glow behind the curved badge */}
+      <div className={`absolute -inset-1.5 bg-gradient-to-br ${service.gradient} opacity-20 rounded-2xl blur-lg group-hover:opacity-45 transition-opacity duration-500`} />
+      
+      {/* Curved Edge Square Badge matching card aesthetics */}
+      <div className="relative z-10 w-16 h-16 sm:w-20 sm:h-20 rounded-2xl overflow-hidden bg-slate-900/90 border border-slate-700/70 p-1.5 shadow-[0_8px_24px_rgba(0,0,0,0.4)] group-hover:border-slate-500/80 transition-all duration-500 group-hover:shadow-[0_12px_28px_rgba(37,99,255,0.25)] flex items-center justify-center">
+        <img
+          src={imgSrc}
+          alt={service.title}
+          onError={handleError}
+          loading="lazy"
+          decoding="async"
+          className="w-full h-full object-cover rounded-xl transform group-hover:scale-110 transition-transform duration-500 pointer-events-none select-none"
+        />
+      </div>
+    </div>
+  );
+};
 
 const ServiceCardEffect = ({ isActive, gradient }) => {
   return (
@@ -138,7 +183,7 @@ const ServiceCardEffect = ({ isActive, gradient }) => {
           exit={{ opacity: 0 }}
           transition={{ duration: 0.4, ease: "easeOut" }}
         >
-          {/* Gentle Ambient Color Aura - No Harsh White Glitch */}
+          {/* Gentle Ambient Color Aura */}
           <motion.div
             initial={{ scale: 0.5, opacity: 0 }}
             animate={{ scale: [0.5, 1.2, 1.4], opacity: [0, 0.25, 0] }}
@@ -188,7 +233,7 @@ const ServiceCard = ({ service, idx }) => {
       onMouseEnter={handleInteraction}
       onMouseLeave={handleMouseLeave}
       onClick={handleInteraction}
-      className="group relative bg-slate-800/70 border border-slate-700/60 rounded-3xl p-6 sm:p-7 md:p-8 cursor-pointer overflow-hidden transition-all duration-300 hover:shadow-[0_20px_40px_rgba(0,0,0,0.3)] hover:border-slate-500/50 flex flex-col justify-between"
+      className="group relative bg-slate-800/70 border border-slate-700/60 rounded-3xl p-6 sm:p-7 md:p-8 cursor-pointer overflow-hidden transition-all duration-300 hover:shadow-[0_20px_40px_rgba(0,0,0,0.3)] hover:border-slate-500/50 flex flex-col justify-start"
     >
       {/* Silky Glitch-Free Ambient Aura on Hover / Tap */}
       <ServiceCardEffect 
@@ -202,16 +247,11 @@ const ServiceCard = ({ service, idx }) => {
       {/* Smooth Ambient Background Glow on Hover */}
       <div className={`absolute inset-0 bg-gradient-to-br ${service.gradient} opacity-0 group-hover:opacity-[0.07] transition-opacity duration-400 rounded-3xl z-0 pointer-events-none`} />
 
-      {/* Card Content Top */}
+      {/* Card Content */}
       <div className="relative z-10 pointer-events-none">
-        {/* Header: Icon & Category Tag */}
-        <div className="flex items-center justify-between mb-6 gap-3">
-          <motion.div 
-            whileHover={{ scale: 1.1, rotate: -4 }} 
-            className={`w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-gradient-to-br ${service.gradient} flex items-center justify-center text-white shadow-lg shrink-0 transition-transform duration-300 group-hover:scale-105`}
-          >
-            {service.icon}
-          </motion.div>
+        {/* Header: Curved 3D Image Badge & Category Tag */}
+        <div className="flex items-center justify-between mb-5 gap-3">
+          <ServiceGraphic service={service} />
 
           <span className={`text-[10px] font-black uppercase tracking-wider px-3 py-1 rounded-full bg-slate-900/80 border ${service.badgeBorder} text-slate-300 backdrop-blur-md shrink-0`}>
             {service.tag}
@@ -219,7 +259,7 @@ const ServiceCard = ({ service, idx }) => {
         </div>
 
         {/* Title */}
-        <h3 className={`text-lg sm:text-xl font-bold text-white mb-3 transition-colors duration-300 ${service.hoverText}`}>
+        <h3 className={`text-lg sm:text-xl font-bold text-white mb-2.5 transition-colors duration-300 ${service.hoverText}`}>
           {service.title}
         </h3>
 
@@ -227,19 +267,6 @@ const ServiceCard = ({ service, idx }) => {
         <p className="text-slate-400 leading-relaxed text-xs sm:text-sm font-normal">
           {service.desc}
         </p>
-      </div>
-
-      {/* Card Footer: Action link & bottom decorative line */}
-      <div className="relative z-10 pt-6 mt-2 border-t border-slate-700/40 flex items-center justify-between pointer-events-none">
-        <a 
-          href="#contact" 
-          className="flex items-center gap-1.5 text-xs font-bold text-slate-300 group-hover:text-white transition-colors duration-300"
-        >
-          <span>Get Started</span>
-          <ArrowRight size={13} className="text-blue-400 group-hover:translate-x-1 transition-transform duration-300" />
-        </a>
-
-        <div className={`w-2 h-2 rounded-full bg-gradient-to-r ${service.gradient} opacity-40 group-hover:opacity-100 group-hover:scale-125 transition-all duration-300`} />
       </div>
     </motion.div>
   );
