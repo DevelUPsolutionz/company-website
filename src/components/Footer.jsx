@@ -1,5 +1,5 @@
 import React from 'react';
-import { Send } from 'lucide-react';
+import { Send, Phone, Mail, MapPin } from 'lucide-react';
 
 const Footer = () => {
   const quickLinks = ['Home', 'About', 'Services', 'Why Us', 'Contact'];
@@ -131,16 +131,31 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Signal */}
-          <div className="col-span-2 lg:col-span-1 flex flex-col items-center lg:items-start text-center lg:text-left mt-4 lg:mt-0">
-            <h4 className="text-[10px] font-black uppercase tracking-[0.3em] text-black mb-8">Direct Signal</h4>
-            <p className="text-slate-800 text-sm mb-6">Ready to engineer your future?</p>
-            <a
-              href="mailto:develupsolutionz@gmail.com"
-              className="inline-block text-[10px] sm:text-xs font-black tracking-widest uppercase bg-slate-900 text-white border border-slate-900 hover:bg-slate-800 px-4 sm:px-6 py-3 sm:py-4 rounded-2xl transition-all duration-300 whitespace-nowrap max-w-full text-center"
-            >
-              develupsolutionz@gmail.com
-            </a>
+          {/* Signal / Contact Info */}
+          <div className="col-span-2 lg:col-span-1 flex flex-col items-start text-left mt-4 lg:mt-0">
+            <h4 className="text-[10px] font-black uppercase tracking-[0.3em] text-black mb-6">Direct Signal</h4>
+            <div className="space-y-3.5 text-sm">
+              <a 
+                href="tel:+919489918729"
+                className="flex items-center gap-2.5 text-slate-800 hover:text-blue-900 transition-colors font-semibold"
+              >
+                <Phone size={16} className="text-slate-900 shrink-0" />
+                <span>+91 9489918729</span>
+              </a>
+
+              <a 
+                href="mailto:develupsolutionz@gmail.com"
+                className="flex items-center gap-2.5 text-slate-800 hover:text-blue-900 transition-colors font-medium break-all"
+              >
+                <Mail size={16} className="text-slate-900 shrink-0" />
+                <span>develupsolutionz@gmail.com</span>
+              </a>
+
+              <div className="flex items-start gap-2.5 text-slate-800 font-medium">
+                <MapPin size={16} className="text-slate-900 shrink-0 mt-0.5" />
+                <span>Thanjavur, Tamil Nadu - 613001</span>
+              </div>
+            </div>
           </div>
         </div>
 

@@ -14,27 +14,41 @@ const steps = [
 const Process = () => {
   const containerRef = useRef(null);
   const lastNodeRef = useRef(null);
-  const [lineHeight, setLineHeight] = useState('100%');
+  const [lineHeight, setLineHeight] = useState('0px');
 
   useEffect(() => {
     const updateLineHeight = () => {
       if (containerRef.current && lastNodeRef.current) {
         const containerRect = containerRef.current.getBoundingClientRect();
         const nodeRect = lastNodeRef.current.getBoundingClientRect();
-        // Calculate the exact height from the top of the container to the bottom of the last node.
-        // We subtract 24 because the line starts at top-6 (24px).
-        const exactHeight = nodeRect.bottom - containerRect.top - 24;
+        // Calculate the exact center of the 7th node relative to container top
+        const nodeCenterY = (nodeRect.top + (nodeRect.height / 2)) - containerRect.top;
+        const lineTop = 24; // top-6 (24px)
+        const exactHeight = Math.max(0, nodeCenterY - lineTop);
         setLineHeight(`${exactHeight}px`);
       }
     };
 
     updateLineHeight();
     window.addEventListener('resize', updateLineHeight);
-    // Optional timeout to ensure layout is complete
-    const timeout = setTimeout(updateLineHeight, 100);
+    
+    // Check after fonts / layouts render
+    const t1 = setTimeout(updateLineHeight, 50);
+    const t2 = setTimeout(updateLineHeight, 300);
+
+    const resizeObserver = new ResizeObserver(() => {
+      updateLineHeight();
+    });
+
+    if (containerRef.current) {
+      resizeObserver.observe(containerRef.current);
+    }
+
     return () => {
       window.removeEventListener('resize', updateLineHeight);
-      clearTimeout(timeout);
+      clearTimeout(t1);
+      clearTimeout(t2);
+      resizeObserver.disconnect();
     };
   }, []);
 

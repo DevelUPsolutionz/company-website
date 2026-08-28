@@ -11,6 +11,7 @@ import Contact from './components/Contact';
 import Footer from './components/Footer';
 import WeAreWorkingWith from './components/WeAreWorkingWith';
 import IntroAnimation from './components/IntroAnimation';
+import WhatsAppButton from './components/WhatsAppButton';
 
 function App() {
   const [showIntro, setShowIntro] = useState(true);
@@ -47,6 +48,7 @@ function App() {
               <Contact />
             </main>
             <Footer />
+            <WhatsAppButton />
           </div>
         </SmoothScroll>
       </div>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Send, Mail } from 'lucide-react';
+import { Send, Mail, Phone, MapPin } from 'lucide-react';
 
 const Contact = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -13,20 +13,26 @@ const Contact = () => {
     
     const form = e.target;
     const formData = new FormData(form);
-
-    fetch('https://script.google.com/macros/s/AKfycbyLNbURjWaaDJ2b2oGCWA-rPahtfyLW7Eqhjpdp20CeTE-eu299W8UVtUWRazsg59VwFw/exec', {
-      method: 'POST',
-      mode: 'no-cors',
-      body: formData,
+    
+    // Construct URL with query parameters for GET request to Google Apps Script
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbyLNbURjWaaDJ2b2oGCWA-rPahtfyLW7Eqhjpdp20CeTE-eu299W8UVtUWRazsg59VwFw/exec';
+    const params = new URLSearchParams();
+    for (const [key, value] of formData.entries()) {
+      params.append(key, value);
+    }
+    
+    fetch(`${scriptURL}?${params.toString()}`, {
+      method: 'GET',
+      mode: 'no-cors', // Apps Script web app endpoint typically needs no-cors for simple GET redirects
     })
-      .then((response) => {
+      .then(() => {
         setIsSubmitting(false);
         setSubmitStatus('success');
         form.reset();
         setTimeout(() => setSubmitStatus(null), 5000);
       })
       .catch((error) => {
-        console.error('Error!', error.message);
+        console.error('Error submitting form:', error);
         setIsSubmitting(false);
         setSubmitStatus('error');
         setTimeout(() => setSubmitStatus(null), 5000);
@@ -75,20 +81,47 @@ const Contact = () => {
             
             <div className="relative z-10">
               <h3 className="text-2xl sm:text-3xl font-black text-white mb-4">Contact Information</h3>
-              <p className="text-slate-400 mb-12 text-sm leading-relaxed">
+              <p className="text-slate-400 mb-8 text-sm leading-relaxed">
                 Fill out the form and our team will get back to you within 24 hours. We're excited to hear about your project!
               </p>
 
-              <div className="space-y-8">
-                <div className="flex items-start gap-5">
-                  <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center text-blue-400 shrink-0 border border-white/5">
-                    <Mail size={20} />
+              <div className="space-y-6">
+                {/* Phone */}
+                <div className="flex items-start gap-4">
+                  <div className="w-11 h-11 rounded-full bg-white/10 flex items-center justify-center text-blue-400 shrink-0 border border-white/5">
+                    <Phone size={18} />
                   </div>
                   <div className="min-w-0 flex-1">
-                    <h4 className="text-sm font-bold text-slate-300 uppercase tracking-widest mb-1">Email Us</h4>
-                    <a href="mailto:develupsolutionz@gmail.com" className="text-white font-medium text-base sm:text-lg hover:text-blue-400 transition-colors break-all">
+                    <h4 className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Call / WhatsApp</h4>
+                    <a href="tel:+919489918729" className="text-white font-medium text-base hover:text-blue-400 transition-colors block">
+                      +91 9489918729
+                    </a>
+                  </div>
+                </div>
+
+                {/* Email */}
+                <div className="flex items-start gap-4">
+                  <div className="w-11 h-11 rounded-full bg-white/10 flex items-center justify-center text-purple-400 shrink-0 border border-white/5">
+                    <Mail size={18} />
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <h4 className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Email Us</h4>
+                    <a href="mailto:develupsolutionz@gmail.com" className="text-white font-medium text-sm sm:text-base hover:text-purple-400 transition-colors break-all">
                       develupsolutionz@gmail.com
                     </a>
+                  </div>
+                </div>
+
+                {/* Location */}
+                <div className="flex items-start gap-4">
+                  <div className="w-11 h-11 rounded-full bg-white/10 flex items-center justify-center text-emerald-400 shrink-0 border border-white/5">
+                    <MapPin size={18} />
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <h4 className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Location</h4>
+                    <p className="text-white font-medium text-sm sm:text-base leading-relaxed">
+                      Thanjavur, Tamil Nadu - 613001
+                    </p>
                   </div>
                 </div>
               </div>
