@@ -154,13 +154,7 @@ const ServiceVisualStage = ({ service }) => {
   const [hasError, setHasError] = useState(false);
 
   const handleError = () => {
-    if (imgSrc.endsWith('.webp')) {
-      setImgSrc(`/services/${service.img || service.id}.png`);
-    } else if (imgSrc.endsWith('.png')) {
-      setImgSrc(`/services/${service.img || service.id}.jpg`);
-    } else {
-      setHasError(true);
-    }
+    setHasError(true);
   };
 
   return (
