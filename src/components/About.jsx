@@ -44,10 +44,11 @@ const About = () => {
             <div className="absolute inset-0 bg-gradient-to-tr from-blue-electric/10 to-purple-neon/10 rounded-3xl transform translate-x-3 translate-y-3 sm:translate-x-6 sm:translate-y-6 pointer-events-none" />
             
             <img 
-              src="/about-image.png" 
+              src="/about-image.webp" 
               alt="About DevelUp Solutionz - Cutting-edge Web, Mobile, and Cloud Solutions" 
               loading="lazy"
               decoding="async"
+              onError={(e) => { e.currentTarget.src = '/about-image.png'; }}
               className="relative z-10 w-full h-auto object-cover rounded-3xl shadow-[0_8px_40px_rgba(37,99,255,0.08)] border border-slate-200/50"
             />
           </motion.div>

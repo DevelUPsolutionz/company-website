@@ -4,6 +4,7 @@ import SmoothScroll from './components/SmoothScroll';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import About from './components/About';
+import VisionMission from './components/VisionMission';
 import Services from './components/Services';
 import Process from './components/Process';
 import WhyChooseUs from './components/WhyChooseUs';
@@ -41,6 +42,7 @@ function App() {
             <main>
               <Hero />
               <About />
+              <VisionMission />
               <Services />
               <Process />
               <WhyChooseUs />

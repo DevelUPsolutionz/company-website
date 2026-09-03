@@ -53,7 +53,11 @@ const Process = () => {
   }, []);
 
   return (
-    <section id="process" className="py-24 bg-transparent relative overflow-hidden">
+    <section id="process" className="py-24 md:py-32 bg-slate-100/80 relative overflow-hidden border-t border-slate-200/80">
+      {/* Background ambient lighting */}
+      <div className="absolute top-10 right-10 w-80 h-80 bg-blue-200/30 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-10 left-10 w-80 h-80 bg-purple-200/30 rounded-full blur-[120px] pointer-events-none" />
+
       <div className="w-full relative z-10">
         <div className="text-center mb-16">
           <motion.h2 

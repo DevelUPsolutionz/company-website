@@ -25,12 +25,14 @@ const WeAreWorkingWith = () => {
             <a href="https://wearaadai.vercel.app/" target="_blank" rel="noopener noreferrer" className="flex flex-col items-center gap-4">
               <div className="w-32 h-32 md:w-40 md:h-40 rounded-full bg-[#111111] shadow-[0_10px_30px_rgba(0,0,0,0.1)] flex items-center justify-center overflow-hidden border-4 border-transparent group-hover:border-yellow-600/30 transition-all duration-300">
                 <img 
-                  src="/aadai-logo.png" 
+                  src="/aadai-logo.webp" 
                   alt="AADAI Fashion Brand - Official Client of DevelUp Solutionz" 
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                   onError={(e) => {
-                    e.target.onerror = null;
-                    e.target.src = "https://via.placeholder.com/150?text=Logo";
+                    e.currentTarget.onerror = null;
+                    e.currentTarget.src = "/aadai-logo.png";
                   }}
                 />
               </div>

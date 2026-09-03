@@ -1,4 +1,5 @@
-﻿User-agent: *
+User-agent: *
 Allow: /
 
+# Direct Sitemap URL for Google Search Console & Bing Webmaster Tools
 Sitemap: https://developsolutions.in/sitemap.xml

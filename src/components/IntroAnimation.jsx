@@ -18,8 +18,9 @@ export default function IntroAnimation({ onComplete }) {
       transition={{ duration: 0.8, ease: "easeInOut" }}
     >
       <motion.img 
-        src="/logo-intro.jpg" 
+        src="/logo-intro.webp" 
         alt="DevelUP Solutionz Logo"
+        onError={(e) => { e.currentTarget.src = '/logo-intro.jpg'; }}
         className="w-[90vw] max-w-[400px] h-auto object-contain"
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
